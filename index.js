@@ -12,8 +12,6 @@ console.log('its working');
 (d) Away Team goals for 2014 world cup final
 (e) Winner of 2014 world cup final */
 
-/* Task 2: Create a function called  getFinals that takes `data` as an argument and returns an array of objects with only finals data */
-// a
 fifaData.filter(item => {
   if (item.Year === 2014 && item.Stage === 'Final')
     console.log(item['Home Team Name']);
@@ -44,29 +42,46 @@ fifaData.filter(item => {
   }
 });
 
+/* Task 2: Create a function called  getFinals that takes `data` as an argument and returns an array of objects with only finals data */
+// a
+
 function getFinals(data) {
-  return data.map(item => {
-    return item.Datetime;
+  return data.filter(item => {
+    if (item.Stage === 'Final') {
+      return item;
+    }
   });
 }
 
-console.log(getFinals(fifaData));
+// console.log(getFinals(fifaData));
 
 /* Task 3: Implement a higher-order function called `getYears` that accepts the callback function `getFinals`, and returns an array called `years` containing all of the years in the dataset */
 
-function getYears(/* code here */) {
-  /* code here */
+function getYears(callback, arr) {
+  let years = [];
+  callback(arr).forEach(element => {
+    years.push(element.Year);
+  });
+  return years;
 }
 
-getYears();
+// console.log(getYears(getFinals, fifaData));
 
 /* Task 4: Implement a higher-order function called `getWinners`, that accepts the callback function `getFinals()` and determine the winner (home or away) of each `finals` game. Return the name of all winning countries in an array called `winners` */
 
-function getWinners(/* code here */) {
-  /* code here */
+function getWinners(callback, arr) {
+  let winners = [];
+  callback(arr).forEach(item => {
+    if (item['Home Team Goals'] > item['Away Team Goals']) {
+      winners.push(item['Home Team Name']);
+    } else {
+      winners.push(item['Away Team Name']);
+    }
+  });
+  return winners;
 }
 
-getWinners();
+console.log(getWinners(getFinals, fifaData));
 
 /* Task 5: Implement a higher-order function called `getWinnersByYear` that accepts the following parameters and returns a set of strings "In {year}, {country} won the world cup!" 
 
