@@ -81,7 +81,7 @@ function getWinners(finals) {
   return winners;
 }
 
-console.log(getWinners(getFinals));
+// console.log(getWinners(getFinals));
 
 /* Task 5: Implement a higher-order function called `getWinnersByYear` that accepts the following parameters and returns a set of strings "In {year}, {country} won the world cup!" 
 
@@ -91,8 +91,8 @@ Parameters:
  */
 
 function getWinnersByYear(winner, year) {
-  let winners = winner(getFinals);
-  let years = year(getFinals);
+  const winners = winner(getFinals);
+  const years = year(getFinals);
   let output = '';
   for (let i = 1; i < winners.length; i++) {
     output += `In ${years[i]}, ${winners[i]} won the world cup! \n`;
@@ -100,7 +100,7 @@ function getWinnersByYear(winner, year) {
   return output;
 }
 
-console.log(getWinnersByYear(getWinners, getYears));
+// console.log(getWinnersByYear(getWinners, getYears));
 
 /* Task 6: Write a function called `getAverageGoals` that accepts a parameter `data` and returns the the average number of home team goals and away team goals scored per match (Hint: use .reduce and do this in 2 steps) */
 
@@ -112,7 +112,7 @@ function getAverageGoals(data) {
   );
 }
 
-console.log(getAverageGoals(fifaData));
+// console.log(getAverageGoals(fifaData));
 
 /// STRETCH 🥅 //
 
@@ -121,11 +121,21 @@ console.log(getAverageGoals(fifaData));
 Hint: Investigate your data to find "team initials"!
 Hint: use `.reduce` */
 
-function getCountryWins(/* code here */) {
-  /* code here */
+function getCountryWins(data, initials) {
+  return data.reduce((accumulator, item) => {
+    if (
+      (item['Home Team Initials'] === initials &&
+        item['Home Team Goals'] > item['Away Team Goals']) ||
+      (item['Away Team Initials'] === initials &&
+        item['Away Team Goals'] > item['Home Team Goals'])
+    ) {
+      accumulator++;
+    }
+    return accumulator;
+  }, 0);
 }
 
-getCountryWins();
+// console.log(getCountryWins(fifaData, 'GER'));
 
 /* Stretch 3: Write a function called getGoals() that accepts a parameter `data` and returns the team with the most goals score per appearance (average goals for) in the World Cup finals */
 
