@@ -74,8 +74,10 @@ function getWinners(finals) {
   finals(fifaData).forEach(item => {
     if (item['Home Team Goals'] > item['Away Team Goals']) {
       winners.push(item['Home Team Name']);
-    } else {
+    } else if (item['Away Team Goals'] > item['Home Team Goals']) {
       winners.push(item['Away Team Name']);
+    } else {
+      winners.push(item['Win conditions']);
     }
   });
   return winners;
